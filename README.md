@@ -4,7 +4,7 @@ RUMBA TAMYZ is a browser based face proportion demo for the ADMIT “MOTION: cam
 
 ## Live application
 
-[Open RUMBA TAMYZ](https://rumba-tamyz.alert-shrew-4013.chatgpt.site/). The production application is served over HTTPS by Sites; the model and WASM files are served from the same origin.
+[Open RUMBA TAMYZ](https://rumba-tamyz.dimadde39.chatgpt.site/). The production application is served over HTTPS by Sites; the model and WASM files are served from the same origin.
 
 ## Run locally
 
@@ -92,4 +92,13 @@ The generated model and WASM binaries are ignored by Git. Run `pnpm prepare:visi
 ## Manual webcam check
 
 Use a real webcam in an HTTPS deployment (or localhost) and check: permission grant/deny, no camera, camera busy, one/two faces, frame edges, head roll, nod down-and-return, left/right sign in the mirrored preview, short/long turn holds, natural single blink, double blink, long blink, and restart gesture. Synthetic motion tests validate rule sequences only; they do not prove camera landmark or direction accuracy. No commit history is fabricated; this workspace was not initialized as a Git repository when implementation began.
+
+## First deployment verification
+
+- TypeScript checks, all 10 deterministic tests, and the production Vite build passed.
+- The public HTTPS page loads in Chromium with a secure context.
+- The face model (3,758,596 bytes), module loader (323,415 bytes), and WASM (11,756,972 bytes) return HTTP 200. Model and WASM SHA-256 hashes match the local production build; WASM is served as `application/wasm`.
+- The deployed module Worker initializes MediaPipe and successfully processes a blank test frame, returning an empty face list as expected.
+- A real Integrated Camera was available: the application received a live 640×480 stream and reached calibration. Camera permission denial and retry were also checked. A complete scan with a person, head gestures, and blink navigation remains a manual check; no claim of full gesture validation is made.
+
 
