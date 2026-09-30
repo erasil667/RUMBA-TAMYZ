@@ -1,5 +1,11 @@
 # RUMBA TAMYZ
 
+## 🚀 Деплой / Live demo
+
+### [▶ Открыть RUMBA TAMYZ — работающий проект](https://rumba-tamyz.dimadde39.chatgpt.site/)
+
+**Проект опубликован и доступен по публичной HTTPS-ссылке.** Для запуска ничего устанавливать не нужно: откройте ссылку в браузере и разрешите доступ к камере. Production-сборка, модель Face Landmarker и WASM размещены на хостинге Sites. Инструкция локального запуска и результаты проверки находятся ниже.
+
 RUMBA TAMYZ is a browser based face proportion demo for the ADMIT “MOTION: camera instead of a joystick” hackathon. It scans a face using the local webcam, lets the user move through the scan with head gestures, and reports a reproducible product index for three visible geometric measurements.
 
 ## Live application
