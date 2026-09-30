@@ -2,12 +2,17 @@
 
 RUMBA TAMYZ is a browser based face proportion demo for the ADMIT “MOTION: camera instead of a joystick” hackathon. It scans a face using the local webcam, lets the user move through the scan with head gestures, and reports a reproducible product index for three visible geometric measurements.
 
+## Live application
+
+[Open RUMBA TAMYZ](https://rumba-tamyz.alert-shrew-4013.chatgpt.site/). The production application is served over HTTPS by Sites; the model and WASM files are served from the same origin.
+
 ## Run locally
 
 Requirements: Node.js 20.19+ (or 22.12+) and pnpm 9+.
 
 ```sh
-pnpm install
+pnpm install --frozen-lockfile
+pnpm prepare:vision-assets
 pnpm dev
 ```
 
@@ -78,8 +83,13 @@ The camera replaces the joystick: a nod starts the scan, sustained left and righ
 
 ## Deployment
 
-Pushes to `main` run the GitHub Actions workflow in `.github/workflows/pages.yml`: install dependencies, prepare the official local model and module WASM files, run checks, build `dist/`, and deploy it to GitHub Pages. The generated model and WASM binaries are ignored by Git and prepared locally with `pnpm prepare:vision-assets` before first run.
+The first production deployment uses Sites. Its project identity and static output directory are recorded in `.openai/hosting.json`. Build with the commands above and publish the complete `dist/` directory, including `models/face_landmarker.task` and `wasm/vision_wasm_module_internal.{js,wasm}`. Do not deploy the source directory or omit these assets.
+
+The repository also contains `.github/workflows/pages.yml` for GitHub Pages. Pages is currently disabled in the repository, so that workflow cannot publish yet. A repository administrator must select **Settings → Pages → Build and deployment → Source: GitHub Actions** before using it. The configured contributor has write access but cannot enable Pages. Once enabled, pushes to `main` install dependencies, prepare local assets, run checks, build, and deploy `dist/`.
+
+The generated model and WASM binaries are ignored by Git. Run `pnpm prepare:vision-assets` after installation in a clean checkout. No application logic was changed for this deployment.
 
 ## Manual webcam check
 
 Use a real webcam in an HTTPS deployment (or localhost) and check: permission grant/deny, no camera, camera busy, one/two faces, frame edges, head roll, nod down-and-return, left/right sign in the mirrored preview, short/long turn holds, natural single blink, double blink, long blink, and restart gesture. Synthetic motion tests validate rule sequences only; they do not prove camera landmark or direction accuracy. No commit history is fabricated; this workspace was not initialized as a Git repository when implementation began.
+
